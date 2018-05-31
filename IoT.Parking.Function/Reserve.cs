@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,6 +23,13 @@ namespace IoT.Parking.Function
             var data = JsonConvert.DeserializeObject<ReserveRequest>(jsonContent);
 
             //Store in the repository
+            var parkingSpace = SingletonRepository.ParkingSpaces.FirstOrDefault(p => p.ParkingSpaceIdentifier == data.Id);
+            if (parkingSpace == null)
+            {
+                return req.CreateResponse(HttpStatusCode.NotFound);
+            }
+            parkingSpace.LastReservationTime = DateTime.UtcNow;
+            parkingSpace.LicensePlate = data.License;
 
             return req.CreateResponse(HttpStatusCode.OK, $"Reserved for space `{data.Id}` for `{data.License}`.");
         }

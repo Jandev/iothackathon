@@ -13,16 +13,15 @@ namespace IoT.Parking.Function
     public static partial class List
     {
         [FunctionName("List")]
-        public static async Task<HttpResponseMessage> Run(
+        public static HttpResponseMessage Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequestMessage req,
-            [Table("MyTable", "MyPartition")] IQueryable<ListResponse> pocos,
             TraceWriter log)
         {
             log.Info("Retrieving parking spaces.");
 
 
             //Retrieve data from repository
-            var result = new List<ListResponse>();
+            var result = SingletonRepository.ParkingSpaces;
             
             return req.CreateResponse(HttpStatusCode.OK, JsonConvert.SerializeObject(result));
         }
