@@ -3,31 +3,24 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "serverfarms_WestEuropePlan_name": {
-      "defaultValue": "WestEuropePlan",
       "type": "String"
     },
     "IotHubs_marvin_workshop_name": {
-      "defaultValue": "marvin-workshop",
       "type": "String"
     },
     "sites_marvin_function_4dotnet_name": {
-      "defaultValue": "marvin-function-4dotnet",
       "type": "String"
     },
     "components_marvin_function_4dotnet_name": {
-      "defaultValue": "marvin-function-4dotnet",
       "type": "String"
     },
     "config_web_name": {
-      "defaultValue": "web",
       "type": "String"
     },
     "storageAccounts_marvinfunctionstorage_name": {
-      "defaultValue": "marvinfunctionstorage",
       "type": "String"
     },
     "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
-      "defaultValue": "marvin-function-4dotnet.azurewebsites.net",
       "type": "String"
     },
     "iotEventHubEndpoint": {

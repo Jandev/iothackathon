@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "serverfarms_WestEuropePlan_name": {
-      "value": null
+      "value": "WestEuropePlan"
     },
     "IotHubs_marvin_workshop_name": {
       "value": "marvin-workshop-vsts"
@@ -15,7 +15,7 @@
       "value": "marvin-function-4dotnet-vsts"
     },
     "config_web_name": {
-      "value": null
+      "value": "web"
     },
     "storageAccounts_marvinfunctionstorage_name": {
       "value": "marvinfunctionstorage-vsts"
