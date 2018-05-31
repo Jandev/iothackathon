@@ -1,27 +1,33 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "serverfarms_WestEuropePlan_name": {
-            "value": null
-        },
-        "IotHubs_marvin_workshop_name": {
-            "value": null
-        },
-        "sites_marvin_function_4dotnet_name": {
-            "value": null
-        },
-        "components_marvin_function_4dotnet_name": {
-            "value": null
-        },
-        "config_web_name": {
-            "value": null
-        },
-        "storageAccounts_marvinfunctionstorage_name": {
-            "value": null
-        },
-        "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
-            "value": null
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverfarms_WestEuropePlan_name": {
+      "value": null
+    },
+    "IotHubs_marvin_workshop_name": {
+      "value": "marvin-workshop-vsts"
+    },
+    "sites_marvin_function_4dotnet_name": {
+      "value": "marvin-function-4dotnet-vsts"
+    },
+    "components_marvin_function_4dotnet_name": {
+      "value": "marvin-function-4dotnet-vsts"
+    },
+    "config_web_name": {
+      "value": null
+    },
+    "storageAccounts_marvinfunctionstorage_name": {
+      "value": "marvinfunctionstorage-vsts"
+    },
+    "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
+      "value": "marvin-function-4dotnet-vsts.azurewebsites.net"
+    },
+    "iotEventHubEndpoint": {
+      "value": "sb://marvin-workshop-eventhub-namespace.servicebus.windows.net/"
+    },
+    "iotEventHubOperationsEndpoint": {
+      "value": "sb://marvin-workshop-opshub-namespace.servicebus.windows.net/"
     }
+  }
 }

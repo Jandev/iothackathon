@@ -1,394 +1,400 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "serverfarms_WestEuropePlan_name": {
-            "defaultValue": "WestEuropePlan",
-            "type": "String"
-        },
-        "IotHubs_marvin_workshop_name": {
-            "defaultValue": "marvin-workshop",
-            "type": "String"
-        },
-        "sites_marvin_function_4dotnet_name": {
-            "defaultValue": "marvin-function-4dotnet",
-            "type": "String"
-        },
-        "components_marvin_function_4dotnet_name": {
-            "defaultValue": "marvin-function-4dotnet",
-            "type": "String"
-        },
-        "config_web_name": {
-            "defaultValue": "web",
-            "type": "String"
-        },
-        "storageAccounts_marvinfunctionstorage_name": {
-            "defaultValue": "marvinfunctionstorage",
-            "type": "String"
-        },
-        "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
-            "defaultValue": "marvin-function-4dotnet.azurewebsites.net",
-            "type": "String"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverfarms_WestEuropePlan_name": {
+      "defaultValue": "WestEuropePlan",
+      "type": "String"
     },
-    "variables": {},
-    "resources": [
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Devices/IotHubs/marvin-workshop'.",
-            "type": "Microsoft.Devices/IotHubs",
-            "sku": {
-                "name": "F1",
-                "tier": "Free",
-                "capacity": 1
-            },
-            "name": "[parameters('IotHubs_marvin_workshop_name')]",
-            "apiVersion": "2018-01-22",
-            "location": "westeurope",
-            "tags": {},
-            "scale": null,
-            "properties": {
-                "operationsMonitoringProperties": {
-                    "events": {
-                        "None": "None",
-                        "Connections": "None",
-                        "DeviceTelemetry": "None",
-                        "C2DCommands": "None",
-                        "DeviceIdentityOperations": "None",
-                        "FileUploadOperations": "None",
-                        "Routes": "None"
-                    }
-                },
-                "ipFilterRules": [],
-                "eventHubEndpoints": {
-                    "events": {
-                        "retentionTimeInDays": 1,
-                        "partitionCount": 2,
-                        "partitionIds": [
-                            "0",
-                            "1"
-                        ],
-                        "path": "iothub-ehub-marvin-wor-489368-71b73db075",
-                        "endpoint": "sb://ihsuprodamres016dednamespace.servicebus.windows.net/"
-                    },
-                    "operationsMonitoringEvents": {
-                        "retentionTimeInDays": 1,
-                        "partitionCount": 2,
-                        "partitionIds": [
-                            "0",
-                            "1"
-                        ],
-                        "path": "iothub-ehub-marvin-wor-489368-15dc2ec9b4",
-                        "endpoint": "sb://ihsuprodamres017dednamespace.servicebus.windows.net/"
-                    }
-                },
-                "routing": {
-                    "endpoints": {
-                        "serviceBusQueues": [],
-                        "serviceBusTopics": [],
-                        "eventHubs": []
-                    },
-                    "routes": [
-                        {
-                            "name": "IncomingMarvinMessages",
-                            "source": "DeviceMessages",
-                            "condition": "true",
-                            "endpointNames": [
-                                "events"
-                            ],
-                            "isEnabled": true
-                        }
-                    ],
-                    "fallbackRoute": {
-                        "name": "$fallback",
-                        "source": "DeviceMessages",
-                        "condition": "true",
-                        "endpointNames": [
-                            "events"
-                        ],
-                        "isEnabled": true
-                    }
-                },
-                "storageEndpoints": {
-                    "$default": {
-                        "sasTtlAsIso8601": "PT1H",
-                        "connectionString": "",
-                        "containerName": ""
-                    }
-                },
-                "enableFileUploadNotifications": false,
-                "cloudToDevice": {
-                    "maxDeliveryCount": 10,
-                    "defaultTtlAsIso8601": "PT1H",
-                    "feedback": {
-                        "lockDurationAsIso8601": "PT1M",
-                        "ttlAsIso8601": "PT1H",
-                        "maxDeliveryCount": 10
-                    }
-                },
-                "features": "None"
-            },
-            "dependsOn": []
+    "IotHubs_marvin_workshop_name": {
+      "defaultValue": "marvin-workshop",
+      "type": "String"
+    },
+    "sites_marvin_function_4dotnet_name": {
+      "defaultValue": "marvin-function-4dotnet",
+      "type": "String"
+    },
+    "components_marvin_function_4dotnet_name": {
+      "defaultValue": "marvin-function-4dotnet",
+      "type": "String"
+    },
+    "config_web_name": {
+      "defaultValue": "web",
+      "type": "String"
+    },
+    "storageAccounts_marvinfunctionstorage_name": {
+      "defaultValue": "marvinfunctionstorage",
+      "type": "String"
+    },
+    "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
+      "defaultValue": "marvin-function-4dotnet.azurewebsites.net",
+      "type": "String"
+    },
+    "iotEventHubEndpoint": {
+      "type": "String"
+    },
+    "iotEventHubOperationsEndpoint": {
+      "type": "String"
+    } 
+  },
+  "variables": {},
+  "resources": [
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Devices/IotHubs/marvin-workshop'.",
+      "type": "Microsoft.Devices/IotHubs",
+      "sku": {
+        "name": "F1",
+        "tier": "Free",
+        "capacity": 1
+      },
+      "name": "[parameters('IotHubs_marvin_workshop_name')]",
+      "apiVersion": "2018-01-22",
+      "location": "westeurope",
+      "tags": {},
+      "scale": null,
+      "properties": {
+        "operationsMonitoringProperties": {
+          "events": {
+            "None": "None",
+            "Connections": "None",
+            "DeviceTelemetry": "None",
+            "C2DCommands": "None",
+            "DeviceIdentityOperations": "None",
+            "FileUploadOperations": "None",
+            "Routes": "None"
+          }
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/microsoft.insights/components/marvin-function-4dotnet'.",
-            "type": "microsoft.insights/components",
-            "kind": "web",
-            "name": "[parameters('components_marvin_function_4dotnet_name')]",
-            "apiVersion": "2015-05-01",
-            "location": "westeurope",
-            "tags": {
-                "hidden-link:/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet": "Resource"
-            },
-            "scale": null,
-            "properties": {
-                "Application_Type": "web",
-                "Flow_Type": null,
-                "Request_Source": "IbizaWebAppExtensionCreate",
-                "HockeyAppId": null,
-                "SamplingPercentage": null
-            },
-            "dependsOn": []
+        "ipFilterRules": [],
+        "eventHubEndpoints": {
+          "events": {
+            "retentionTimeInDays": 1,
+            "partitionCount": 2,
+            "partitionIds": [
+              "0",
+              "1"
+            ],
+            "path": "iothub-ehub-marvin-wor-489368-71b73db075",
+            "endpoint": "[parameters('iotEventHubEndpoint')]"
+          },
+          "operationsMonitoringEvents": {
+            "retentionTimeInDays": 1,
+            "partitionCount": 2,
+            "partitionIds": [
+              "0",
+              "1"
+            ],
+            "path": "iothub-ehub-marvin-wor-489368-15dc2ec9b4",
+            "endpoint": "[parameters('iotEventHubOperationsEndpoint')]"
+          }
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Storage/storageAccounts/marvinfunctionstorage'.",
-            "type": "Microsoft.Storage/storageAccounts",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "kind": "Storage",
-            "name": "[parameters('storageAccounts_marvinfunctionstorage_name')]",
-            "apiVersion": "2017-10-01",
-            "location": "westeurope",
-            "tags": {},
-            "scale": null,
-            "properties": {
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Allow"
-                },
-                "supportsHttpsTrafficOnly": false,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "enabled": true
-                        },
-                        "blob": {
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                }
-            },
-            "dependsOn": []
+        "routing": {
+          "endpoints": {
+            "serviceBusQueues": [],
+            "serviceBusTopics": [],
+            "eventHubs": []
+          },
+          "routes": [
+            {
+              "name": "IncomingMarvinMessages",
+              "source": "DeviceMessages",
+              "condition": "true",
+              "endpointNames": [
+                "events"
+              ],
+              "isEnabled": true
+            }
+          ],
+          "fallbackRoute": {
+            "name": "$fallback",
+            "source": "DeviceMessages",
+            "condition": "true",
+            "endpointNames": [
+              "events"
+            ],
+            "isEnabled": true
+          }
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/serverfarms/WestEuropePlan'.",
-            "type": "Microsoft.Web/serverfarms",
-            "sku": {
-                "name": "Y1",
-                "tier": "Dynamic",
-                "size": "Y1",
-                "family": "Y",
-                "capacity": 0
-            },
-            "kind": "functionapp",
-            "name": "[parameters('serverfarms_WestEuropePlan_name')]",
-            "apiVersion": "2016-09-01",
-            "location": "West Europe",
-            "scale": null,
-            "properties": {
-                "name": "[parameters('serverfarms_WestEuropePlan_name')]",
-                "workerTierName": null,
-                "adminSiteName": null,
-                "hostingEnvironmentProfile": null,
-                "perSiteScaling": false,
-                "reserved": false,
-                "targetWorkerCount": 0,
-                "targetWorkerSizeId": 0
-            },
-            "dependsOn": []
+        "storageEndpoints": {
+          "$default": {
+            "sasTtlAsIso8601": "PT1H",
+            "connectionString": "",
+            "containerName": ""
+          }
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet'.",
-            "type": "Microsoft.Web/sites",
-            "kind": "functionapp",
-            "name": "[parameters('sites_marvin_function_4dotnet_name')]",
-            "apiVersion": "2016-08-01",
-            "location": "West Europe",
-            "scale": null,
-            "properties": {
-                "enabled": true,
-                "hostNameSslStates": [
-                    {
-                        "name": "[concat(parameters('sites_marvin_function_4dotnet_name'),'.azurewebsites.net')]",
-                        "sslState": "Disabled",
-                        "virtualIP": null,
-                        "thumbprint": null,
-                        "toUpdate": null,
-                        "hostType": "Standard"
-                    },
-                    {
-                        "name": "[concat(parameters('sites_marvin_function_4dotnet_name'),'.scm.azurewebsites.net')]",
-                        "sslState": "Disabled",
-                        "virtualIP": null,
-                        "thumbprint": null,
-                        "toUpdate": null,
-                        "hostType": "Repository"
-                    }
-                ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_WestEuropePlan_name'))]",
-                "reserved": false,
-                "siteConfig": null,
-                "scmSiteAlsoStopped": false,
-                "hostingEnvironmentProfile": null,
-                "clientAffinityEnabled": false,
-                "clientCertEnabled": false,
-                "hostNamesDisabled": false,
-                "containerSize": 1536,
-                "dailyMemoryTimeQuota": 0,
-                "cloningInfo": null
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_WestEuropePlan_name'))]"
-            ]
+        "enableFileUploadNotifications": false,
+        "cloudToDevice": {
+          "maxDeliveryCount": 10,
+          "defaultTtlAsIso8601": "PT1H",
+          "feedback": {
+            "lockDurationAsIso8601": "PT1M",
+            "ttlAsIso8601": "PT1H",
+            "maxDeliveryCount": 10
+          }
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet/config/web'.",
-            "type": "Microsoft.Web/sites/config",
-            "name": "[concat(parameters('sites_marvin_function_4dotnet_name'), '/', parameters('config_web_name'))]",
-            "apiVersion": "2016-08-01",
-            "location": "West Europe",
-            "scale": null,
-            "properties": {
-                "numberOfWorkers": 1,
-                "defaultDocuments": [
-                    "Default.htm",
-                    "Default.html",
-                    "Default.asp",
-                    "index.htm",
-                    "index.html",
-                    "iisstart.htm",
-                    "default.aspx",
-                    "index.php"
-                ],
-                "netFrameworkVersion": "v4.0",
-                "phpVersion": "5.6",
-                "pythonVersion": "",
-                "nodeVersion": "",
-                "linuxFxVersion": "",
-                "windowsFxVersion": null,
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": null,
-                "httpLoggingEnabled": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$marvin-function-4dotnet",
-                "publishingPassword": null,
-                "appSettings": null,
-                "metadata": null,
-                "connectionStrings": null,
-                "machineKey": null,
-                "handlerMappings": null,
-                "documentRoot": null,
-                "scmType": "None",
-                "use32BitWorkerProcess": true,
-                "webSocketsEnabled": false,
-                "alwaysOn": false,
-                "javaVersion": null,
-                "javaContainer": null,
-                "javaContainerVersion": null,
-                "appCommandLine": "",
-                "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": false,
-                        "virtualDirectories": null
-                    }
-                ],
-                "winAuthAdminState": 0,
-                "winAuthTenantState": 0,
-                "customAppPoolIdentityAdminState": false,
-                "customAppPoolIdentityTenantState": false,
-                "runtimeADUser": null,
-                "runtimeADUserPassword": null,
-                "loadBalancing": "LeastRequests",
-                "routingRules": [],
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "limits": null,
-                "autoHealEnabled": false,
-                "autoHealRules": null,
-                "tracingOptions": null,
-                "vnetName": "",
-                "siteAuthEnabled": false,
-                "siteAuthSettings": {
-                    "enabled": null,
-                    "unauthenticatedClientAction": null,
-                    "tokenStoreEnabled": null,
-                    "allowedExternalRedirectUrls": null,
-                    "defaultProvider": null,
-                    "clientId": null,
-                    "clientSecret": null,
-                    "issuer": null,
-                    "allowedAudiences": null,
-                    "additionalLoginParams": null,
-                    "isAadAutoProvisioned": false,
-                    "googleClientId": null,
-                    "googleClientSecret": null,
-                    "googleOAuthScopes": null,
-                    "facebookAppId": null,
-                    "facebookAppSecret": null,
-                    "facebookOAuthScopes": null,
-                    "twitterConsumerKey": null,
-                    "twitterConsumerSecret": null,
-                    "microsoftAccountClientId": null,
-                    "microsoftAccountClientSecret": null,
-                    "microsoftAccountOAuthScopes": null
-                },
-                "cors": {
-                    "allowedOrigins": [
-                        "https://functions.azure.com",
-                        "https://functions-staging.azure.com",
-                        "https://functions-next.azure.com"
-                    ]
-                },
-                "push": null,
-                "apiDefinition": null,
-                "autoSwapSlotName": null,
-                "localMySqlEnabled": false,
-                "managedServiceIdentityId": null,
-                "xManagedServiceIdentityId": null,
-                "ipSecurityRestrictions": null,
-                "http20Enabled": false,
-                "minTlsVersion": "1.0",
-                "ftpsState": "AllAllowed"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_marvin_function_4dotnet_name'))]"
-            ]
+        "features": "None"
+      },
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/microsoft.insights/components/marvin-function-4dotnet'.",
+      "type": "microsoft.insights/components",
+      "kind": "web",
+      "name": "[parameters('components_marvin_function_4dotnet_name')]",
+      "apiVersion": "2015-05-01",
+      "location": "westeurope",
+      "tags": {
+        "hidden-link:/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet": "Resource"
+      },
+      "scale": null,
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": null,
+        "Request_Source": "IbizaWebAppExtensionCreate",
+        "HockeyAppId": null,
+        "SamplingPercentage": null
+      },
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Storage/storageAccounts/marvinfunctionstorage'.",
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageAccounts_marvinfunctionstorage_name')]",
+      "apiVersion": "2017-10-01",
+      "location": "westeurope",
+      "tags": {},
+      "scale": null,
+      "properties": {
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
         },
-        {
-            "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet/hostNameBindings/marvin-function-4dotnet.azurewebsites.net'.",
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "name": "[concat(parameters('sites_marvin_function_4dotnet_name'), '/', parameters('hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name'))]",
-            "apiVersion": "2016-08-01",
-            "location": "West Europe",
-            "scale": null,
-            "properties": {
-                "siteName": "marvin-function-4dotnet",
-                "domainId": null,
-                "hostNameType": "Verified"
+        "supportsHttpsTrafficOnly": false,
+        "encryption": {
+          "services": {
+            "file": {
+              "enabled": true
             },
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_marvin_function_4dotnet_name'))]"
-            ]
+            "blob": {
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
         }
-    ]
+      },
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/serverfarms/WestEuropePlan'.",
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
+      "kind": "functionapp",
+      "name": "[parameters('serverfarms_WestEuropePlan_name')]",
+      "apiVersion": "2016-09-01",
+      "location": "West Europe",
+      "scale": null,
+      "properties": {
+        "name": "[parameters('serverfarms_WestEuropePlan_name')]",
+        "workerTierName": null,
+        "adminSiteName": null,
+        "hostingEnvironmentProfile": null,
+        "perSiteScaling": false,
+        "reserved": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      },
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet'.",
+      "type": "Microsoft.Web/sites",
+      "kind": "functionapp",
+      "name": "[parameters('sites_marvin_function_4dotnet_name')]",
+      "apiVersion": "2016-08-01",
+      "location": "West Europe",
+      "scale": null,
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('sites_marvin_function_4dotnet_name'),'.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "virtualIP": null,
+            "thumbprint": null,
+            "toUpdate": null,
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('sites_marvin_function_4dotnet_name'),'.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "virtualIP": null,
+            "thumbprint": null,
+            "toUpdate": null,
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_WestEuropePlan_name'))]",
+        "reserved": false,
+        "siteConfig": null,
+        "scmSiteAlsoStopped": false,
+        "hostingEnvironmentProfile": null,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "cloningInfo": null
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_WestEuropePlan_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet/config/web'.",
+      "type": "Microsoft.Web/sites/config",
+      "name": "[concat(parameters('sites_marvin_function_4dotnet_name'), '/', parameters('config_web_name'))]",
+      "apiVersion": "2016-08-01",
+      "location": "West Europe",
+      "scale": null,
+      "properties": {
+        "numberOfWorkers": 1,
+        "defaultDocuments": [
+          "Default.htm",
+          "Default.html",
+          "Default.asp",
+          "index.htm",
+          "index.html",
+          "iisstart.htm",
+          "default.aspx",
+          "index.php"
+        ],
+        "netFrameworkVersion": "v4.0",
+        "phpVersion": "5.6",
+        "pythonVersion": "",
+        "nodeVersion": "",
+        "linuxFxVersion": "",
+        "windowsFxVersion": null,
+        "requestTracingEnabled": false,
+        "remoteDebuggingEnabled": false,
+        "remoteDebuggingVersion": null,
+        "httpLoggingEnabled": false,
+        "logsDirectorySizeLimit": 35,
+        "detailedErrorLoggingEnabled": false,
+        "publishingUsername": "$marvin-function-4dotnet",
+        "publishingPassword": null,
+        "appSettings": null,
+        "metadata": null,
+        "connectionStrings": null,
+        "machineKey": null,
+        "handlerMappings": null,
+        "documentRoot": null,
+        "scmType": "None",
+        "use32BitWorkerProcess": true,
+        "webSocketsEnabled": false,
+        "alwaysOn": false,
+        "javaVersion": null,
+        "javaContainer": null,
+        "javaContainerVersion": null,
+        "appCommandLine": "",
+        "managedPipelineMode": "Integrated",
+        "virtualApplications": [
+          {
+            "virtualPath": "/",
+            "physicalPath": "site\\wwwroot",
+            "preloadEnabled": false,
+            "virtualDirectories": null
+          }
+        ],
+        "winAuthAdminState": 0,
+        "winAuthTenantState": 0,
+        "customAppPoolIdentityAdminState": false,
+        "customAppPoolIdentityTenantState": false,
+        "runtimeADUser": null,
+        "runtimeADUserPassword": null,
+        "loadBalancing": "LeastRequests",
+        "routingRules": [],
+        "experiments": {
+          "rampUpRules": []
+        },
+        "limits": null,
+        "autoHealEnabled": false,
+        "autoHealRules": null,
+        "tracingOptions": null,
+        "vnetName": "",
+        "siteAuthEnabled": false,
+        "siteAuthSettings": {
+          "enabled": null,
+          "unauthenticatedClientAction": null,
+          "tokenStoreEnabled": null,
+          "allowedExternalRedirectUrls": null,
+          "defaultProvider": null,
+          "clientId": null,
+          "clientSecret": null,
+          "issuer": null,
+          "allowedAudiences": null,
+          "additionalLoginParams": null,
+          "isAadAutoProvisioned": false,
+          "googleClientId": null,
+          "googleClientSecret": null,
+          "googleOAuthScopes": null,
+          "facebookAppId": null,
+          "facebookAppSecret": null,
+          "facebookOAuthScopes": null,
+          "twitterConsumerKey": null,
+          "twitterConsumerSecret": null,
+          "microsoftAccountClientId": null,
+          "microsoftAccountClientSecret": null,
+          "microsoftAccountOAuthScopes": null
+        },
+        "cors": {
+          "allowedOrigins": [
+            "https://functions.azure.com",
+            "https://functions-staging.azure.com",
+            "https://functions-next.azure.com"
+          ]
+        },
+        "push": null,
+        "apiDefinition": null,
+        "autoSwapSlotName": null,
+        "localMySqlEnabled": false,
+        "managedServiceIdentityId": null,
+        "xManagedServiceIdentityId": null,
+        "ipSecurityRestrictions": null,
+        "http20Enabled": false,
+        "minTlsVersion": "1.0",
+        "ftpsState": "AllAllowed"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_marvin_function_4dotnet_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/ba49bae7-2b37-4504-914b-441763a2bcd3/resourceGroups/iot-workshop-4dotnet/providers/Microsoft.Web/sites/marvin-function-4dotnet/hostNameBindings/marvin-function-4dotnet.azurewebsites.net'.",
+      "type": "Microsoft.Web/sites/hostNameBindings",
+      "name": "[concat(parameters('sites_marvin_function_4dotnet_name'), '/', parameters('hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name'))]",
+      "apiVersion": "2016-08-01",
+      "location": "West Europe",
+      "scale": null,
+      "properties": {
+        "siteName": "marvin-function-4dotnet",
+        "domainId": null,
+        "hostNameType": "Verified"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', parameters('sites_marvin_function_4dotnet_name'))]"
+      ]
+    }
+  ]
 }
