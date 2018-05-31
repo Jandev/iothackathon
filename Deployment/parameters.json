@@ -18,7 +18,7 @@
       "value": "web"
     },
     "storageAccounts_marvinfunctionstorage_name": {
-      "value": "marvinfunctionstorage-vsts"
+      "value": "marvinfunctionstorage"
     },
     "hostNameBindings_marvin_function_4dotnet.azurewebsites.net_name": {
       "value": "marvin-function-4dotnet-vsts.azurewebsites.net"
